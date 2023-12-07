@@ -1,0 +1,146 @@
+section2:
+    11. Install Laravel Breeze: 
+        composer require laravel/breeze --dev
+        php artisan breeze:install
+        php artisan migrate
+        npm install
+        npm run dev
+    12. Seed Demo User Data:
+        php artisan make:seeder UsersTableSeeder
+        php artisan migrate:fresh --seed
+    13.Laravel Multi Auth with Breeze Part 1
+        php artisan make:controller AdminController
+    15.Laravel Multi Auth with Breeze Part 3
+        php artisan make:middleware AdminRole
+    16.Login With Name Email Phone
+        php artisan optimize
+    17.Forgot Password & Password Reset
+        modified .env to
+            MAIL_MAILER=smtp
+            MAIL_HOST=sandbox.smtp.mailtrap.io
+            MAIL_PORT=2525
+            MAIL_USERNAME=b76cf34e94601f
+            MAIL_PASSWORD=60e227fb54cb4c
+            MAIL_ENCRYPTION=tls
+            MAIL_FROM_ADDRESS="mr.linh1090@gmail.com"
+        php artisan config:cache
+        php artisan cache:clear
+        php artisan view:clear
+        php artisan optimize
+
+section3: Project Admin Panel Setup
+section4: Project Frontend Template Setup
+section6: Create Team Setup
+    45. Install Image Intervention Package
+        google search: laravel image intervention
+        composer require intervention/image
+        php artisan vendor:publish --provider="Intervention\Image\ImageServiceProviderLaravelRecent"
+    46. Team Setup Part 1
+        php artisan make:model Team -m
+section7: Create Book Area Setup
+    55. Book Are Setup Part 1
+        php artisan make:model BookArea -m
+        php artisan migrate
+section8: Room Type Area Setup
+    58. RoomType Area Setup Part 1
+        php artisan make:controller backend\RoomTypeController
+        php artisan make:model RoomType -m
+section9: Add Advance Room Setup
+    60. Edit Room Setup Part 1
+        php artisan make:model Room -m
+        php artisan make:model Facility -m
+        php artisan make:model MultiImage -m
+        php artisan migrate
+    64. Edit Room Setup Part 5
+        tiny.cloud
+section10: Add Advance Room Number Setup
+    73. Add Advance Room Number Setup Part 1
+        php artisan make:model RoomNumber -m
+section11: Delete Room From Multiple Table Setup
+section12: Show Team in Frontend Home Page
+section13: Show Book Area in Frontend Home Page
+section14: Show Book Room In in Frontend Home Page
+section15: Show Room List Page in Frontend
+    php artisan make:controller frontend\FrontendRoomController
+section16: Show Room Details Page in Frontend
+section17: Check Room Arability Option
+    90. Check Room Availability Part 2
+        php artisan make:model Booking -m
+    94. Check Room Availability Part 6
+        php artisan make:model BookingRoomList -m
+        php artisan migrate:refresh  --path=/database/migrations/selected
+Section18: Check Room Details Page
+Section19: Complete Room Check Out Option
+    102. Complete Room Check Out Part 1
+        php artisan make:controller frontend\BookingController
+Section20: Complete Room Check Out With Cash On Delivery
+Section21: Complete Room Check Out With Stripe
+    https://stripe.com/docs/keys
+    https://stripe.com/docs/testing
+    https://stripe.com/docs/development/quickstart
+
+    https://stripe.com/docs/api/charges/create?lang=php
+
+    110. Complete Room Check Out With Stripe Part 1
+        composer require stripe/stripe-php
+    113. Complete Room Check Out With Stripe Part 4
+        composer dump-autoload
+        php artisan cache:clear
+        php artisan config:clear
+        php artisan view:clear
+        php artisan optimize
+Section22: Backend Booking Request Option
+Section23: Manage Room Inventory in Room List
+    131. Manage Room Inventory in Room List Part 1
+        php artisan make:controller backend\RoomListController
+Section24: Add Booking From Admin Page
+Section25: Create Booking Invoice Option With PDF
+    google search: laravel dompdf
+    composer require barryvdh/laravel-dompdf
+    php artisan vendor:publish --provider="Barryvdh\DomPDF\ServiceProvider"
+Section26: Show Booking History In User Dashboard
+Section27: Email Setup For Booking Configuration
+    143. Email Setup For User Booking Configuration Part 1,2
+        php artisan make:mail BookConfirm
+Section28: Dynamic Email Configuration in laravel Edit env
+    php artisan make:controller backend/SettingController
+    php artisan make:model SmtpSetting -m
+Section29: Testimonials Option Setup
+Section30: Admin Blog Category Setup
+    153. Advance Blog Category Setup Part 1
+        php artisan make:controller backend\BlogController
+        php artisan make:model BlogCategory -m
+Section31: Admin Blog Management Setup
+Section32: Show Blog in Frontend Page
+Section33: Category Wise Blog List Page
+Section34: Create Custom Pagination
+Section35: Blog Comment Function Frontend Page
+Section36: Admin Setup Blog Comment In Active And Inactive
+Section37: Booking Sales Report In Admin Dashboard
+Section38: Site Setting Option Update
+Section39: Site Gallery Option Setup
+Section40: Show Site Gallery in Frontend
+Section41: Frontend Contact Page Setup
+Section42: Update Admin Dashboard
+Section43: Show Booking Notification in Admin Panel
+    php artisan notifications:table
+    php artisan migrate
+Section44: Setup User Permission
+    194. Install Laravel Spatie Permission
+        composer require spatie/laravel-permission
+        php artisan vendor:publish --provider="Spatie\Permission\PermissionServiceProvider"
+        php artisan optimize:clear
+        # or
+        php artisan config:clear
+        php artisan migrate
+Section45: Permission Import and Export From Excel File
+    199. Install laravel Excel Package in Project
+        composer require maatwebsite/excel
+        php artisan vendor:publish --provider="Maatwebsite\Excel\ExcelServiceProvider" --tag=config
+    201. How to Import and Export Permission Part 2
+        php artisan make:export PermissionExport --model=Permission
+        php artisan make:import PermissionImport --model=Permission
+Section46: Setup User Roles
+Section47: Multi Admin For Store
+Section48: Add Role And Permission in Sidebar
+Section49: Create 404 and 403 Page
