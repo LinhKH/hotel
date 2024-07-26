@@ -286,7 +286,9 @@
                     alert('Please select a payment method');
                     return false;
                 } else if (pay_method == 'COD') {
-
+                    // alert($(".require-validation")).get(0).submit();
+                    $(".require-validation").get(0).submit();
+                    return ;
                 } else {
                     document.getElementById('myButton').disabled = true;
 

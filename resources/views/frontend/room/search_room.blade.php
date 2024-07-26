@@ -35,7 +35,7 @@
                             ->get()
                             ->toArray();
 
-                        $total_book_room = array_sum(array_column($bookings, 'assign_rooms_count'));
+                            $total_book_room = array_sum(array_column($bookings, 'assign_rooms_count'));
 
                         $av_room = @$item->room_numbers_count - $total_book_room;
 

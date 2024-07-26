@@ -243,10 +243,18 @@
     });
 
     // Datetimepicker
-    $('#datetimepicker').datepicker();
+    $('#datetimepicker').datepicker({
+        dateFormat: 'yy-mm-dd',
+        autoclose: true,
+        minDate: 0
+    });
 
     // Datetimepicker
-    $('#datetimepicker-check').datepicker();
+    $('#datetimepicker-check').datepicker({
+        dateFormat: 'yy-mm-dd',
+        autoclose: true,
+        minDate: 0
+    });
     $('.dt_picker').datepicker({
         dateFormat: 'yy-mm-dd',
         autoclose: true,

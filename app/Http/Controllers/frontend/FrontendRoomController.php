@@ -26,7 +26,8 @@ class FrontendRoomController extends Controller
         $multiImage = MultiImage::where('rooms_id', $id)->get();
         $facility = Facility::where('rooms_id', $id)->get();
         $otherRooms = Room::where('id', '!=', $id)->orderBy('id', 'DESC')->limit(2)->get();
-        return view('frontend.room.room_details', compact('roomdetails', 'multiImage', 'facility', 'otherRooms'));
+        $room_id = $id;
+        return view('frontend.room.room_details', compact('roomdetails', 'multiImage', 'facility', 'otherRooms', 'room_id'));
     }
 
     public function BookingSeach(Request $request)
@@ -51,11 +52,11 @@ class FrontendRoomController extends Controller
         foreach ($d_period as $period) {
             array_push($dt_array, date('Y-m-d', strtotime($period)));
         }
-
+        
         $check_date_booking_ids = RoomBookedDate::whereIn('book_date', $dt_array)->distinct()->pluck('booking_id')->toArray();
-
+        
+        // return ($check_date_booking_ids);die;
         $rooms = Room::withCount('room_numbers')->where('status', 1)->get();
-        // dd($rooms);
 
         return view('frontend.room.search_room', compact('rooms', 'check_date_booking_ids'));
     }
