@@ -250,12 +250,12 @@ Route::middleware(['auth', 'roles:admin'])->group(function () {
 /// Room All Route 
 Route::controller(FrontendRoomController::class)->group(function () {
 
-    Route::get('/rooms/', 'AllFrontendRoomList')->name('froom.all');
-    Route::get('/room/details/{id}', 'RoomDetailsPage');
-    Route::get('/bookings/', 'BookingSeach')->name('booking.search');
-    Route::get('/search/room/details/{id}', 'SearchRoomDetails')->name('search_room_details');
+    Route::get('rooms/', 'AllFrontendRoomList')->name('froom.all');
+    Route::get('room/details/{id}', 'RoomDetailsPage');
+    Route::get('bookings/', 'BookingSeach')->name('booking.search');
+    Route::get('search/room/details/{id}', 'SearchRoomDetails')->name('search_room_details');
 
-    Route::get('/check_room_availability/', 'CheckRoomAvailability')->name('check_room_availability');
+    Route::get('check_room_availability/', 'CheckRoomAvailability')->name('check_room_availability');
 });
 
 
@@ -265,54 +265,54 @@ Route::middleware(['auth'])->group(function () {
     /// CHECKOUT ALL Route 
     Route::controller(BookingController::class)->group(function () {
 
-        Route::get('/checkout', 'Checkout')->name('checkout');
-        Route::post('/booking/store/', 'BookingStore')->name('user_booking_store');
-        Route::post('/checkout/store/', 'CheckoutStore')->name('checkout.store');
+        Route::get('checkout', 'Checkout')->name('checkout');
+        Route::post('booking/store/', 'BookingStore')->name('user_booking_store');
+        Route::post('checkout/store/', 'CheckoutStore')->name('checkout.store');
         Route::match(['get', 'post'], '/stripe_pay', [BookingController::class, 'stripe_pay'])->name('stripe_pay');
 
         // booking Update 
-        Route::post('/update/booking/status/{id}', 'UpdateBookingStatus')->name('update.booking.status');
-        Route::post('/update/booking/{id}', 'UpdateBooking')->name('update.booking');
+        Route::post('update/booking/status/{id}', 'UpdateBookingStatus')->name('update.booking.status');
+        Route::post('update/booking/{id}', 'UpdateBooking')->name('update.booking');
 
         // Assign Room Route 
-        Route::get('/assign_room/{id}', 'AssignRoom')->name('assign_room');
-        Route::get('/assign_room/store/{booking_id}/{room_number_id}', 'AssignRoomStore')->name('assign_room_store');
-        Route::get('/assign_room_delete/{id}', 'AssignRoomDelete')->name('assign_room_delete');
+        Route::get('assign_room/{id}', 'AssignRoom')->name('assign_room');
+        Route::get('assign_room/store/{booking_id}/{room_number_id}', 'AssignRoomStore')->name('assign_room_store');
+        Route::get('assign_room_delete/{id}', 'AssignRoomDelete')->name('assign_room_delete');
 
         ////////// User Booking Route
 
-        Route::get('/user/booking', 'UserBooking')->name('user.booking');
-        Route::get('/user/invoice/{id}', 'UserInvoice')->name('user.invoice');
+        Route::get('user/booking', 'UserBooking')->name('user.booking');
+        Route::get('user/invoice/{id}', 'UserInvoice')->name('user.invoice');
     });
 }); // End Group Auth Middleware
 
 /// Frontend Blog  All Route 
 Route::controller(BlogController::class)->group(function () {
 
-    Route::get('/blog/details/{slug}', 'BlogDetails');
-    Route::get('/blog/cat/list/{id}', 'BlogCatList');
-    Route::get('/blog', 'BlogList')->name('blog.list');
+    Route::get('blog/details/{slug}', 'BlogDetails');
+    Route::get('blog/cat/list/{id}', 'BlogCatList');
+    Route::get('blog', 'BlogList')->name('blog.list');
 });
 
 /// Frontend Comment All Route 
 Route::controller(CommentController::class)->group(function () {
 
-    Route::post('/store/comment/', 'StoreComment')->name('store.comment');
+    Route::post('store/comment/', 'StoreComment')->name('store.comment');
 });
 
 
 /// Frontend Gallery All Route 
 Route::controller(GalleryController::class)->group(function () {
 
-    Route::get('/gallery', 'ShowGallery')->name('show.gallery');
+    Route::get('gallery', 'ShowGallery')->name('show.gallery');
 
     // Contact All Route 
-    Route::get('/contact', 'ContactUs')->name('contact.us');
-    Route::post('/store/contact', 'StoreContactUs')->name('store.contact');
+    Route::get('contact', 'ContactUs')->name('contact.us');
+    Route::post('store/contact', 'StoreContactUs')->name('store.contact');
 });
 
 /// Notification All Route 
 Route::controller(BookingController::class)->group(function () {
 
-    Route::post('/mark-notification-as-read/{notification}', 'MarkAsRead');
+    Route::post('mark-notification-as-read/{notification}', 'MarkAsRead');
 });
