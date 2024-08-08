@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\frontend;
 
 use App\Http\Controllers\Controller;
+use App\Mail\BookAssignRoom;
 use App\Models\Booking;
 use App\Models\BookingRoomList;
 use App\Models\Room;
@@ -23,6 +24,42 @@ use Stripe;
 
 class BookingController extends Controller
 {
+    public function BookingStore(Request $request)
+    {
+        $validateData = $request->validate([
+            'check_in' => 'required',
+            // 'check_out' => 'required',
+            'persion' => 'required',
+            'number_of_rooms' => 'required',
+
+        ]);
+
+        if ($request->available_room < $request->number_of_rooms) {
+            $notification = array(
+                'message' => 'Something want to wrong!',
+                'alert-type' => 'error'
+            );
+            return redirect()->back()->with($notification);
+        }
+        Session::forget('book_date');
+
+        $data = array();
+        $data['number_of_rooms'] = $request->number_of_rooms;
+        $data['available_room'] = $request->available_room;
+        $data['persion'] = $request->persion;
+        $checkInOut = explode(' - ', $request->check_in);
+        $check_in = $checkInOut[0];
+        $check_out = $checkInOut[1];
+
+        $data['check_in'] = date('Y-m-d', strtotime($check_in));
+        $data['check_out'] = date('Y-m-d', strtotime($check_out));
+        $data['room_id'] = $request->room_id;
+
+        Session::put('book_date', $data);
+
+        return redirect()->route('checkout');
+    }
+
     public function Checkout()
     {
         if (Session::has('book_date')) {
@@ -41,46 +78,12 @@ class BookingController extends Controller
                 'alert-type' => 'error'
             );
             return redirect('/')->with($notification);
-        } 
-    }
-
-    public function BookingStore(Request $request)
-    {
-
-        $validateData = $request->validate([
-            'check_in' => 'required',
-            'check_out' => 'required',
-            'persion' => 'required',
-            'number_of_rooms' => 'required',
-
-        ]);
-
-        if ($request->available_room < $request->number_of_rooms) {
-
-            $notification = array(
-                'message' => 'Something want to wrong!',
-                'alert-type' => 'error'
-            );
-            return redirect()->back()->with($notification);
         }
-        Session::forget('book_date');
-
-        $data = array();
-        $data['number_of_rooms'] = $request->number_of_rooms;
-        $data['available_room'] = $request->available_room;
-        $data['persion'] = $request->persion;
-        $data['check_in'] = date('Y-m-d', strtotime($request->check_in));
-        $data['check_out'] = date('Y-m-d', strtotime($request->check_out));
-        $data['room_id'] = $request->room_id;
-
-        Session::put('book_date', $data);
-
-        return redirect()->route('checkout');
     }
 
     public function CheckoutStore(Request $request)
     {
-        $user = User::where('role', 'admin')->get();
+        $userAdmin = User::where('role', 'admin')->get();
 
         $this->validate($request, [
             'name' => 'required',
@@ -129,7 +132,7 @@ class BookingController extends Controller
         } else {
             $payment_status = 0;
             $transation_id = '';
-        } 
+        }
 
         $data = new Booking();
         $data->rooms_id = $room->id;
@@ -180,8 +183,8 @@ class BookingController extends Controller
             'alert-type' => 'success'
         );
 
-        Notification::send($user, new BookingComplete($request->name));
-        
+        Notification::send($userAdmin, new BookingComplete($request->name));
+
         return redirect('/')->with($notification);
     }
 
@@ -194,14 +197,12 @@ class BookingController extends Controller
 
     public function EditBooking($id)
     {
-
         $editData = Booking::with('room')->find($id);
         return view('backend.booking.edit_booking', compact('editData'));
     }
 
     public function UpdateBookingStatus(Request $request, $id)
     {
-
         $booking = Booking::find($id);
         $booking->payment_status = $request->payment_status;
         $booking->status = $request->status;
@@ -230,7 +231,6 @@ class BookingController extends Controller
 
     public function UpdateBooking(Request $request, $id)
     {
-
         if ($request->available_room < $request->number_of_rooms) {
 
             $notification = array(
@@ -270,7 +270,6 @@ class BookingController extends Controller
 
     public function AssignRoom($booking_id)
     {
-
         $booking = Booking::find($booking_id);
 
         $booking_date_array = RoomBookedDate::where('booking_id', $booking_id)->pluck('book_date')->toArray();
@@ -288,16 +287,15 @@ class BookingController extends Controller
 
     public function AssignRoomStore($booking_id, $room_number_id)
     {
-
         $booking = Booking::find($booking_id);
         $check_data = BookingRoomList::where('booking_id', $booking_id)->count();
-
         if ($check_data < $booking->number_of_rooms) {
             $assign_data = new BookingRoomList();
             $assign_data->booking_id = $booking_id;
             $assign_data->room_id = $booking->rooms_id;
             $assign_data->room_number_id = $room_number_id;
             $assign_data->save();
+            Mail::to($booking->user->email)->send(new BookAssignRoom($booking, $room_number_id));
 
             $notification = array(
                 'message' => 'Room Assign Successfully',
@@ -305,7 +303,6 @@ class BookingController extends Controller
             );
             return redirect()->back()->with($notification);
         } else {
-
             $notification = array(
                 'message' => 'Room Already Assign',
                 'alert-type' => 'error'
@@ -316,7 +313,6 @@ class BookingController extends Controller
 
     public function AssignRoomDelete($id)
     {
-
         $assign_room = BookingRoomList::find($id);
         $assign_room->delete();
 
@@ -329,7 +325,6 @@ class BookingController extends Controller
 
     public function DownloadInvoice($id)
     {
-
         $editData = Booking::with('room')->find($id);
         $pdf = Pdf::loadView('backend.booking.booking_invoice', compact('editData'))->setPaper('a4')->setOption([
             'tempDir' => public_path(),
@@ -347,7 +342,6 @@ class BookingController extends Controller
 
     public function UserInvoice($id)
     {
-
         $editData = Booking::with('room')->find($id);
         $pdf = Pdf::loadView('backend.booking.booking_invoice', compact('editData'))->setPaper('a4')->setOption([
             'tempDir' => public_path(),
@@ -368,9 +362,4 @@ class BookingController extends Controller
 
         return response()->json(['count' => $user->unreadNotifications()->count()]);
     }
-
-
-
-
-
 }

@@ -32,6 +32,8 @@
     <!-- Theme Dark CSS -->
     <link rel="stylesheet" href="{{ asset('frontend/assets/css/theme-dark.css') }}">
 
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+
     <!-- Favicon -->
     <link rel="icon" type="image/png" href="{{ asset('frontend/assets/img/favicon.png') }}">
 
@@ -76,6 +78,7 @@
 
     <!-- Jquery Min JS -->
     <script src="{{ asset('frontend/assets/js/jquery.min.js') }}"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></scri
     <!-- Bootstrap Bundle Min JS -->
     <script src="{{ asset('frontend/assets/js/bootstrap.bundle.min.js') }}"></script>
     <!-- Magnific Popup Min JS -->
@@ -96,11 +99,62 @@
     <script src="{{ asset('frontend/assets/js/form-validator.min.js') }}"></script>
     <!-- Contact Form JS -->
     <script src="{{ asset('frontend/assets/js/contact-form-script.js') }}"></script>
+
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
     <!-- Custom JS -->
     <script src="{{ asset('frontend/assets/js/custom.js') }}"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 
     <script>
+        $(document).ready(function() {
+            var room_id = "{{ $room_id ?? "" }}";
+            $(function() {
+
+                $('input[name="check_in"]').daterangepicker({
+                    autoUpdateInput: false,
+                    minDate: moment().format('DD/MM/YYYY'),
+                    locale: {
+                        cancelLabel: 'Clear'
+                    }
+                });
+
+                $('input[name="check_in"]').on('apply.daterangepicker', function(ev, picker) {
+                    $(this).val(picker.startDate.format('MM/DD/YYYY') + ' - ' + picker.endDate.format('MM/DD/YYYY'));
+                    if (room_id) {
+                        $.ajax({
+                            url: "{{ route('check_room_availability') }}",
+                            data: {
+                                room_id: room_id,
+                                check_in: picker.startDate.format('MM/DD/YYYY'),
+                                check_out: picker.endDate.format('MM/DD/YYYY')
+                            },
+                            success: function(data) {
+                                $(".available_room").html('Availability : <span class="text-success">' + data[
+                                    'available_room'] + ' Rooms</span>');
+                                $("#available_room").val(data['available_room']);
+                                // price_calculate(data['total_nights']);
+                            }
+                        });
+                    
+                    }
+                });
+
+                $('input[name="check_in"]').on('cancel.daterangepicker', function(ev, picker) {
+                    $(this).val('');
+                });
+
+            });
+
+            $(function() {
+                $('input[name="datetimes"]').daterangepicker({
+                    timePicker: true,
+                    locale: {
+                        format: 'M/DD/Y hh:mm A',
+                    }
+                });
+            });
+
+        });
         @if (Session::has('message'))
             var type = "{{ Session::get('alert-type', 'info') }}"
             switch (type) {

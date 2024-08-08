@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Booking;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -12,6 +13,15 @@ class UserController extends Controller
     public function Index()
     {
         return view('frontend.index');
+    }
+    public function UserDashboard()
+    {
+        $id = Auth::user()->id;
+        $totalBookings = Booking::where('user_id', $id)->orderBy('id', 'desc')->count();
+        $totalPending = Booking::where('user_id', $id)->where('status', 0)->orderBy('id', 'desc')->count();
+        $totalActived = Booking::where('user_id', $id)->where('status', 1)->orderBy('id', 'desc')->count();
+        
+        return view('frontend.dashboard.user_dashboard', compact('totalBookings','totalPending','totalActived'));
     }
 
     public function UserProfile()

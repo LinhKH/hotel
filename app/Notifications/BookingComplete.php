@@ -10,7 +10,7 @@ use Illuminate\Notifications\Notification;
 class BookingComplete extends Notification
 {
     use Queueable;
-
+    public $name;
     /**
      * Create a new notification instance.
      */

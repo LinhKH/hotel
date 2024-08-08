@@ -15,25 +15,28 @@
             </center>
             <br>
             <ul>
-
-                <li>
+                <li class="{{ Route::is('dashboard') ? 'active_user_menu' : '' }}">
                     <a href="{{ route('dashboard') }}">User Dashboard</a>
                 </li>
-                <li>
+                <li class="{{ Route::is('user.profile') ? 'active_user_menu' : '' }}">
                     <a href="{{ route('user.profile') }}">User Profile </a>
                 </li>
-                <li>
+                <li class="{{ Route::is('user.change.password') ? 'active_user_menu' : '' }}">
                     <a href="{{ route('user.change.password') }}">Change Password</a>
                 </li>
-                <li>
+                <li class="{{ Route::is('user.booking') ? 'active_user_menu' : '' }}">
                     <a href="{{ route('user.booking') }}">Booking Details </a>
                 </li>
-                <li>
+                <li class="{{ Route::is('user.logout') ? 'active_user_menu' : '' }}">
                     <a href="{{ route('user.logout') }}">Logout </a>
                 </li>
             </ul>
         </div>
     </div>
-
+    <style>
+        .active_user_menu {
+            background: rgb(225, 104, 104) !important;
+        }
+    </style>
 
 </div>

@@ -35,17 +35,17 @@
                             <div class="row align-items-center">
                                 <div class="col-lg-12">
                                     <div class="form-group">
-                                        <label>Check in</label>
+                                        <label>Check In / Out</label>
                                         <div class="input-group">
                                             <input autocomplete="off" type="text" required name="check_in" id="check_in"
-                                                class="form-control dt_picker"
-                                                value="{{ old('check_in') ? date('Y-m-d', strtotime(old('check_in'))) : '' }}">
+                                                class="form-control"
+                                                value="{{ old('check_in') }}" placeholder="yyyy-mm-dd">
                                             <span class="input-group-addon"></span>
                                         </div>
                                         <i class='bx bxs-calendar'></i>
                                     </div>
                                 </div>
-                                <div class="col-lg-12">
+                                {{-- <div class="col-lg-12">
                                     <div class="form-group">
                                         <label>Check Out</label>
                                         <div class="input-group">
@@ -56,7 +56,7 @@
                                         </div>
                                         <i class='bx bxs-calendar'></i>
                                     </div>
-                                </div>
+                                </div> --}}
                                 <div class="col-lg-12">
                                     <div class="form-group">
                                         <label>Numbers of Persons</label>
@@ -288,27 +288,30 @@
 <script>
     $(document).ready(function() {
             var check_in = "{{ old('check_in') }}";
-            var check_out = "{{ old('check_out') }}";
+            // var check_out = "{{ old('check_out') }}";
+            var checkInOut = check_in.split(' - ');
             var room_id = "{{ $room_id }}";
-            if (check_in != '' && check_out != '') {
-                getAvaility(check_in, check_out, room_id);
+            if (check_in != '') {
+                getAvaility(checkInOut[0], checkInOut[1], room_id);
             }
 
-            $("#check_out").on('change', function() {
-                var check_out = $(this).val();
+            $("#check_in").on('change', function() {
                 var check_in = $("#check_in").val();
+                var checkInOut = check_in.split(' - ');
 
-                if (check_in != '' && check_out != '') {
-                    getAvaility(check_in, check_out, room_id);
+                if (check_in != '') {
+                    getAvaility(checkInOut[0], checkInOut[1], room_id);
                 }
             });
 
             $(".number_of_rooms").on('change', function() {
-                var check_out = $("#check_out").val();
+                // var check_out = $("#check_out").val();
                 var check_in = $("#check_in").val();
-
-                if (check_in != '' && check_out != '') {
-                    getAvaility(check_in, check_out, room_id);
+                
+                var checkInOut = check_in.split(' - ');
+                
+                if (check_in != '') {
+                    getAvaility(checkInOut[0], checkInOut[1], room_id);
                 }
             });
 
@@ -350,13 +353,13 @@
             var av_room = $("#available_room").val();
             var select_room = $("#select_room").val();
             if (parseInt(select_room) > av_room) {
-                alert('Sorry, you select maximum number of room');
+                alert('Sorry, you are selected maximum number of room');
                 return false;
             }
             var nmbr_person = $("#nmbr_person").val();
             var total_adult = $("#total_adult").val();
             if (parseInt(nmbr_person) > parseInt(total_adult)) {
-                alert('Sorry, you select maximum number of person');
+                alert('Sorry, you are selected maximum number of person');
                 return false;
             }
         })

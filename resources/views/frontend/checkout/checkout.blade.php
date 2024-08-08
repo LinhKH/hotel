@@ -21,16 +21,13 @@
     <!-- Checkout Area -->
     <section class="checkout-area pt-100 pb-70">
         <div class="container">
-
             <form method="post" role="form" action="{{ route('checkout.store') }}" class="stripe_form require-validation"
                 data-cc-on-file="false" data-stripe-publishable-key="{{ env('STRIPE_KEY') }}">
                 @csrf
-
                 <div class="row">
                     <div class="col-lg-8">
                         <div class="billing-details">
                             <h3 class="title">Billing Details</h3>
-
                             <div class="row">
                                 <div class="col-lg-12 col-md-12">
                                     <div class="form-group">
@@ -102,14 +99,11 @@
                                     </div>
                                 </div>
 
-
                                 {{-- <p>Session Value : {{ json_encode(session('book_date')) }}</p>   --}}
-
 
                             </div>
                         </div>
                     </div>
-
 
                     <div class="col-lg-4">
                         <section class="checkout-area pb-70">
@@ -127,17 +121,13 @@
                                                 style="font-size: 20px; color: #595959;font-weight: bold">{{ @$room->type->name }}</a>
                                             <p><b>{{ $room->price }} / Night</b></p>
                                         </div>
-
                                     </div>
-
                                     <br>
-
                                     <table class="table" style="width: 100%">
                                         @php
                                             $subtotal = $room->price * $nights * $book_data['number_of_rooms'];
                                             $discount = ($room->discount / 100) * $subtotal;
                                         @endphp
-
                                         <tr>
                                             <td>
                                                 <p>Total Night <br> <b> ( {{ $book_data['check_in'] }} -
@@ -184,26 +174,20 @@
                                 </div>
                             </div>
                         </section>
-
                     </div>
-
 
                     <div class="col-lg-8 col-md-8">
                         <div class="payment-box">
                             <div class="payment-method">
-
                                 <p>
                                     <input type="radio" id="cash-on-delivery" class="pay_method" name="payment_method" value="COD">
                                     <label for="cash-on-delivery">Cash On Delivery</label>
                                 </p>
-
-
                                 <p>
                                     <input type="radio" class="pay_method" id="stripe" name="payment_method"
                                         value="Stripe">
                                     <label for="stripe">Stripe</label>
                                 </p>
-
                                 <div id="stripe_pay" class="d-none">
                                     {{-- <br> --}}
                                     <div class="form-row row">
@@ -242,11 +226,8 @@
                                         </div>
                                     </div>
                                 </div>
-
-
                             </div>
                             <button type="submit" class="order-btn" id="myButton">Place to Order</button>
-
                         </div>
                     </div>
                 </div>
@@ -329,7 +310,6 @@
 
             function stripeResponseHandler(status, response) {
                 if (response.error) {
-
                     document.getElementById('myButton').disabled = false;
 
                     $('.error')
@@ -337,7 +317,6 @@
                         .find('.alert')
                         .text(response.error.message);
                 } else {
-
                     document.getElementById('myButton').disabled = true;
                     document.getElementById('myButton').value = 'Please Wait...';
 

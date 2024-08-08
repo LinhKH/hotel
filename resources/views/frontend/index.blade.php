@@ -16,18 +16,18 @@
             <div class="banner-form">
                 <form method="get" action="{{ route('booking.search') }}">
                     <div class="row align-items-center">
-                        <div class="col-lg-3 col-md-3">
+                        <div class="col-lg-6 col-md-6">
                             <div class="form-group">
                                 <label>CHECK IN TIME</label>
                                 <div class="input-group">
-                                    <input autocomplete="off"  type="text" required name="check_in" class="form-control dt_picker" placeholder="yyy-mm-dd">
+                                    <input autocomplete="off"  type="text" required name="check_in" class="form-control" placeholder="yyy-mm-dd">
                                     <span class="input-group-addon"></span>
                                 </div>
-                                <i class='bx bxs-chevron-down'></i>
+                                {{-- <i class='bx bxs-chevron-down'></i> --}}
                             </div>
                         </div>
 
-                        <div class="col-lg-3 col-md-3">
+                        {{-- <div class="col-lg-3 col-md-3">
                             <div class="form-group">
                                 <label>CHECK OUT TIME</label>
                                 <div class="input-group">
@@ -36,7 +36,7 @@
                                 </div>
                                 <i class='bx bxs-chevron-down'></i>
                             </div>
-                        </div>
+                        </div> --}}
 
                         <div class="col-lg-2 col-md-2">
                             <div class="form-group">

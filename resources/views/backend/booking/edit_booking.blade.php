@@ -93,7 +93,7 @@
                                 <p class="mb-0 text-secondary">Booking Status</p>
                                 <h6 class="my-1 text-warning">
                                     @if ($editData->status == '1')
-                                        <span class="text-success">Complete</span>
+                                        <span class="text-success">Acitve</span>
                                     @else
                                         <span class="text-danger">Pending</span>
                                     @endif
@@ -224,7 +224,7 @@
                                         <option selected="">Select Status..</option>
                                         <option value="0" {{ $editData->status == 0 ? 'selected' : '' }}> Pending
                                         </option>
-                                        <option value="1" {{ $editData->status == 1 ? 'selected' : '' }}>Complete
+                                        <option value="1" {{ $editData->status == 1 ? 'selected' : '' }}>Active
                                         </option>
                                     </select>
                                 </div>

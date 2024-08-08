@@ -11,27 +11,25 @@ use Spatie\Permission\Models\Permission;
 
 class AdminController extends Controller
 {
-    public function AdminDashboard() {
+    public function AdminDashboard()
+    {
         return view('admin.index');
     }
 
     public function AllAdmin()
     {
-
         $alladmin = User::where('role', 'admin')->get();
         return view('backend.pages.admin.all_admin', compact('alladmin'));
     }
 
     public function AddAdmin()
     {
-
         $roles = Role::all();
         return view('backend.pages.admin.add_admin', compact('roles'));
     }
 
     public function StoreAdmin(Request $request)
     {
-
         $user = new User();
         $user->name = $request->name;
         $user->email = $request->email;
@@ -56,7 +54,6 @@ class AdminController extends Controller
 
     public function EditAdmin($id)
     {
-
         $user = User::find($id);
         $roles = Role::all();
         return view('backend.pages.admin.edit_admin', compact('user', 'roles'));
@@ -64,7 +61,6 @@ class AdminController extends Controller
 
     public function UpdateAdmin(Request $request, $id)
     {
-
         $user = User::find($id);
         $user->name = $request->name;
         $user->email = $request->email;
@@ -90,7 +86,6 @@ class AdminController extends Controller
 
     public function DeleteAdmin($id)
     {
-
         $user = User::find($id);
         if (!is_null($user)) {
             $user->delete();
@@ -107,7 +102,8 @@ class AdminController extends Controller
     /**
      * Destroy an authenticated session.
      */
-    public function AdminLogout(Request $request) {
+    public function AdminLogout(Request $request)
+    {
         Auth::guard('web')->logout();
 
         $request->session()->invalidate();
@@ -131,18 +127,17 @@ class AdminController extends Controller
 
     public function AdminProfileStore(Request $request)
     {
-        
         $id = Auth::user()->id;
         $data = User::find($id);
         $data->name = $request->name;
         $data->email = $request->email;
         $data->phone = $request->phone;
         $data->address = $request->address;
-        if($request->file('photo')) {
+        if ($request->file('photo')) {
             $file = $request->file('photo');
             @unlink(public_path('upload/admin_images/' . $data->photo));
-            $fileName = date('YmdHi'). $file->getClientOriginalName();
-            $file->move(public_path('upload/admin_images'),$fileName);
+            $fileName = date('YmdHi') . $file->getClientOriginalName();
+            $file->move(public_path('upload/admin_images'), $fileName);
             $data->photo = $fileName;
         }
         $data->save();
@@ -188,7 +183,6 @@ class AdminController extends Controller
             'message' => 'Password Change Successfully',
             'alert-type' => 'success'
         );
-
         return back()->with($notification);
     }
 }

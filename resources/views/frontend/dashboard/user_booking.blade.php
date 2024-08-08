@@ -76,7 +76,7 @@
                                                                 <td>{{ $item->number_of_rooms }}</td>
                                                                 <td>
                                                                     @if ($item->status == 1)
-                                                                        <span class="badge bg-success">Complete</span>
+                                                                        <span class="badge bg-success">Active</span>
                                                                     @else
                                                                         <span class="badge bg-info text-dark">Pending</span>
                                                                     @endif

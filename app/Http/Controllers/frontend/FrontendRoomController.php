@@ -43,9 +43,12 @@ class FrontendRoomController extends Controller
 
             return redirect()->back()->with($notification);
         }
+        $checkInOut = explode(' - ', $request->check_in);
+        $check_in = $checkInOut[0];
+        $check_out = $checkInOut[1];
 
-        $sdate = date('Y-m-d', strtotime($request->check_in));
-        $edate = date('Y-m-d', strtotime($request->check_out));
+        $sdate = date('Y-m-d', strtotime($check_in));
+        $edate = date('Y-m-d', strtotime($check_out));
         $alldate = Carbon::create($edate)->subDay();
         $d_period = CarbonPeriod::create($sdate, $alldate);
         $dt_array = [];
@@ -78,6 +81,7 @@ class FrontendRoomController extends Controller
 
         $sdate = date('Y-m-d', strtotime($request->check_in));
         $edate = date('Y-m-d', strtotime($request->check_out));
+        
         $alldate = Carbon::create($edate)->subDay();
         $d_period = CarbonPeriod::create($sdate, $alldate);
         $dt_array = [];

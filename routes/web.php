@@ -23,10 +23,7 @@ use App\Http\Controllers\Backend\RoleController;
 // });
 Route::get('/', [UserController::class, 'Index']);
 
-
-Route::get('/dashboard', function () {
-    return view('frontend.dashboard.user_dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+Route::get('/dashboard', [UserController::class, 'UserDashboard'])->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
 
