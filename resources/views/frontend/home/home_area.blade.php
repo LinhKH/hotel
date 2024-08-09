@@ -17,7 +17,7 @@ $room = App\Models\Room::latest()
                     <div class="row align-items-center">
                         <div class="col-lg-5 col-md-4 p-0">
                             <div class="room-card-img">
-                                <a href="{{ url('room/details/'.$item->id) }}">
+                                <a href="{{ url('details/room/'.$item->id) }}">
                                     <img src="{{ asset('upload/roomimg/' . $item->image) }}" alt="Images">
                                 </a>
                             </div>
@@ -26,7 +26,7 @@ $room = App\Models\Room::latest()
                         <div class="col-lg-7 col-md-8 p-0">
                             <div class="room-card-content">
                                 <h3>
-                                    <a href="{{ url('room/details/'.$item->id) }}">{{ $item['type']['name'] }}</a>
+                                    <a href="{{ url('details/room/'.$item->id) }}">{{ $item['type']['name'] }}</a>
                                 </h3>
                                 <span>{{ $item->price }} / Per Night </span>
                                 <div class="rating">
@@ -47,7 +47,7 @@ $room = App\Models\Room::latest()
                                     <li><i class='bx bxs-hotel'></i> {{ $item->bed_style }}</li>
                                 </ul>
 
-                                <a href="{{ url('room/details/'.$item->id) }}" class="book-more-btn">
+                                <a href="{{ url('details/room/'.$item->id) }}" class="book-more-btn">
                                     Book Now
                                 </a>
                             </div>

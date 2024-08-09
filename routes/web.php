@@ -251,7 +251,7 @@ Route::middleware(['auth', 'roles:admin'])->group(function () {
 Route::controller(FrontendRoomController::class)->group(function () {
 
     Route::get('rooms/', 'AllFrontendRoomList')->name('froom.all');
-    Route::get('room/details/{id}', 'RoomDetailsPage');
+    Route::get('details/room/{id}', 'RoomDetailsPage');
     Route::get('bookings/', 'BookingSeach')->name('booking.search');
     Route::get('search/room/details/{id}', 'SearchRoomDetails')->name('search_room_details');
 
