@@ -15,8 +15,8 @@
             </center>
             <br>
             <ul>
-                <li class="{{ Route::is('dashboard') ? 'active_user_menu' : '' }}">
-                    <a href="{{ route('dashboard') }}">User Dashboard</a>
+                <li class="{{ Route::is('user.dashboard') ? 'active_user_menu' : '' }}">
+                    <a href="{{ route('user.dashboard') }}">User Dashboard</a>
                 </li>
                 <li class="{{ Route::is('user.profile') ? 'active_user_menu' : '' }}">
                     <a href="{{ route('user.profile') }}">User Profile </a>

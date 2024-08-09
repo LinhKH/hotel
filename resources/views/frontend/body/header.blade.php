@@ -33,7 +33,7 @@
 
                             <li>
                                 <i class='bx bxs-user-pin'></i>
-                                <a href="{{ route('dashboard') }}">Dashboard</a>
+                                <a href="{{ route('user.dashboard') }}">Dashboard</a>
                             </li>
 
                             <li>

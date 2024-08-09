@@ -23,7 +23,7 @@ use App\Http\Controllers\Backend\RoleController;
 // });
 Route::get('/', [UserController::class, 'Index']);
 
-Route::get('/dashboard', [UserController::class, 'UserDashboard'])->middleware(['auth', 'verified'])->name('dashboard');
+Route::get('/dashboard', [UserController::class, 'UserDashboard'])->middleware(['auth', 'verified'])->name('user.dashboard');
 
 Route::middleware('auth')->group(function () {
 
@@ -49,7 +49,7 @@ Route::middleware(['auth', 'roles:admin'])->group(function () {
 }); // End Admin Group Middleware 
 
 
-Route::get('/admin/login', [AdminController::class, 'AdminLogin'])->name('admin.login');
+Route::get('/admin/login', [AdminController::class, 'AdminLogin'])->name('admin.login')->middleware('guest');
 
 
 // Admin Group Middleware 
