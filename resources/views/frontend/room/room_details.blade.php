@@ -290,7 +290,8 @@
         var check_in = "{{ old('check_in') }}";
             // var check_out = "{{ old('check_out') }}";
             var checkInOut = check_in.split(' - ');
-            var room_id = "{{ $room_id }}";
+            // var room_id = "{{ $room_id }}";
+            var room_id = $("[name='room_id']").val();
             if (check_in != '') {
                 getAvaility(checkInOut[0], checkInOut[1], room_id);
             }
