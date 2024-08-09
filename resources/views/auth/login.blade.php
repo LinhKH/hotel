@@ -31,18 +31,22 @@
                             <form method="POST" action="{{ route('login') }}">
                                 @csrf
                                 <div class="row">
+                                    <div>
+                                        <p><strong>Email :</strong> user@gmail.com | supperadmin@gmail.com | admin@gmail.com</p>
+                                        <p><strong>Password :</strong> password</p>
+                                    </div>
                                     <div class="col-lg-12 ">
                                         <div class="form-group">
                                             <input type="text" name="login" id="login" class="form-control"
                                                 required data-error="Please enter your Name or Email or Phone"
-                                                placeholder="Name or Email or Phone">
+                                                placeholder="Name or Email or Phone" value="user@gmail.com">
                                         </div>
                                     </div>
 
                                     <div class="col-12">
                                         <div class="form-group">
                                             <input class="form-control" type="password" id="password" name="password"
-                                                placeholder="Password">
+                                                placeholder="Password" value="password">
                                         </div>
                                     </div>
 
