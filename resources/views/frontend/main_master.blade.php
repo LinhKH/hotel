@@ -112,7 +112,7 @@
 
                 $('input[name="check_in"]').daterangepicker({
                     autoUpdateInput: false,
-                    minDate: moment().format('DD/MM/YYYY'),
+                    minDate: moment().format('MM/DD/YYYY'),
                     locale: {
                         cancelLabel: 'Clear'
                     }
