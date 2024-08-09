@@ -7,10 +7,10 @@
         $bookings = App\Models\Booking::latest()->get();
         $pending = App\Models\Booking::where('status', '0')->get();
         $complete = App\Models\Booking::where('status', '1')->get();
-        $totalPrice = App\Models\Booking::sum('total_price');
+        $totalPrice = App\Models\Booking::where('payment_status', '1')->sum('total_price');
 
         $today = Carbon\Carbon::now()->toDateString();
-        $todayprice = App\Models\Booking::whereDate('created_at', $today)->sum('total_price');
+        $todayprice = App\Models\Booking::where('payment_status', '1')->whereDate('created_at', $today)->sum('total_price');
 
         $allData = App\Models\Booking::orderBy('id', 'desc')
             ->limit(10)
@@ -115,7 +115,7 @@
             <div class="card-header">
                 <div class="d-flex align-items-center">
                     <div>
-                        <h6 class="mb-0">Recent Booking</h6>
+                        <h6 class="mb-0">10 Most Recent Bookings</h6>
                     </div>
 
                 </div>
