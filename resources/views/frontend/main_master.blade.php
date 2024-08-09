@@ -132,7 +132,7 @@
                                 $(".available_room").html('Availability : <span class="text-success">' + data[
                                     'available_room'] + ' Rooms</span>');
                                 $("#available_room").val(data['available_room']);
-                                // price_calculate(data['total_nights']);
+                                price_calculate(data['total_nights']);
                             }
                         });
                     

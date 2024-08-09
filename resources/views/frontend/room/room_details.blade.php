@@ -295,6 +295,26 @@
                 getAvaility(checkInOut[0], checkInOut[1], room_id);
             }
 
+            $('input[name="check_in"]').on('apply.daterangepicker', function(ev, picker) {
+                if (room_id) {
+                    $.ajax({
+                        url: "{{ route('check_room_availability') }}",
+                        data: {
+                            room_id: room_id,
+                            check_in: picker.startDate.format('MM/DD/YYYY'),
+                            check_out: picker.endDate.format('MM/DD/YYYY')
+                        },
+                        success: function(data) {
+                            $(".available_room").html('Availability : <span class="text-success">' + data[
+                                'available_room'] + ' Rooms</span>');
+                            $("#available_room").val(data['available_room']);
+                            price_calculate(data['total_nights']);
+                        }
+                    });
+                
+                }
+            });
+
             $("#check_in").on('change', function() {
                 var check_in = $("#check_in").val();
                 var checkInOut = check_in.split(' - ');
