@@ -35,15 +35,13 @@
                             ->get()
                             ->toArray();
 
-                            $total_book_room = array_sum(array_column($bookings, 'assign_rooms_count'));
+                            $total_room_booked = array_sum(array_column($bookings, 'assign_rooms_count'));
 
-                        $av_room = @$item->room_numbers_count - $total_book_room;
+                        $avalable_room = @$item->room_numbers_count - $total_room_booked;
 
                     @endphp
 
-
-
-                    @if ($av_room > 0 && old('persion') <= $item->total_adult)
+                    @if ($avalable_room > 0 && old('persion') <= $item->total_adult)
                         <div class="col-lg-4 col-md-6">
                             <div class="room-card">
                                 <a
@@ -65,7 +63,8 @@
                                         <i class='bx bxs-star'></i>
                                         <i class='bx bxs-star'></i>
                                         <i class='bx bxs-star'></i>
-                                        <i class='bx bxs-star-half'></i>
+                                        <i class='bx bxs-star'></i>
+                                        {{-- <i class='bx bxs-star-half'></i> --}}
                                     </div>
                                 </div>
                             </div>
@@ -76,9 +75,8 @@
                 @endforeach
 
                 @if (count($rooms) == count($empty_array))
-                    <p class="text-center text-danger">Sorry No Data Found</p>
+                    <p class="text-center text-danger">Sorry, There are no rooms that match your request. Please choose another date.</p>
                 @endif
-
 
             </div>
         </div>

@@ -24,7 +24,7 @@
                 <div class="collapse navbar-collapse mean-menu" id="navbarSupportedContent">
                     <ul class="navbar-nav m-auto">
                         <li class="nav-item">
-                            <a href="{{ url('/') }}" class="nav-link active">
+                            <a href="{{ url('/') }}" class="nav-link {{ request()->is('/') ? 'active' : ''}}">
                                 Home
                             </a>
 
@@ -33,7 +33,7 @@
                             $room = App\Models\Room::latest()->get();
                         @endphp
                         <li class="nav-item">
-                            <a href="{{ route('froom.all') }}" class="nav-link">
+                            <a href="{{ route('froom.all') }}" class="nav-link {{ request()->is('rooms') ? 'active' : ''}}">
                                 Rooms
                             </a>
                             {{-- <ul class="dropdown-menu">
@@ -49,14 +49,14 @@
                         </li>
 
                         <li class="nav-item">
-                            <a href="{{ route('show.gallery') }}" class="nav-link">
+                            <a href="{{ route('show.gallery') }}" class="nav-link {{ request()->is('gallery') ? 'active' : ''}}">
                               Gallery
                             </a>
 
                         </li>
 
                         <li class="nav-item">
-                            <a href="{{ route('blog.list') }}" class="nav-link">
+                            <a href="{{ route('blog.list') }}" class="nav-link {{ request()->is('blog') ? 'active' : ''}}">
                                 Blog
                             </a>
 
@@ -73,7 +73,7 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="{{ route('contact.us') }}" class="nav-link">
+                            <a href="{{ route('contact.us') }}" class="nav-link {{ request()->is('contact') ? 'active' : ''}}">
                                 Contact
                             </a>
                         </li>

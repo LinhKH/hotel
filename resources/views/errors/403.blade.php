@@ -59,10 +59,10 @@
                                         class="text-danger">0</span><span class="text-success">3</span></h1>
                                 <h2 class="font-weight-bold display-4">Lost in Space</h2>
                                 <p>USER DOES NOT HAVE THE RIGHT PERMISSIONS.</p>
-                                <div class="mt-5"> <a href="javascript:;"
+                                <div class="mt-5"> <a href="{{ url('/') }}"
                                         class="btn btn-primary btn-lg px-md-5 radius-30">Go Home</a>
-                                    <a href="javascript:;"
-                                        class="btn btn-outline-dark btn-lg ms-3 px-md-5 radius-30">Back</a>
+                                    {{-- <a href="javascript:;"
+                                        class="btn btn-outline-dark btn-lg ms-3 px-md-5 radius-30">Back</a> --}}
                                 </div>
                             </div>
                         </div>

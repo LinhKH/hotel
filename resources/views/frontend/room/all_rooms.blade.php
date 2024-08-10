@@ -44,7 +44,8 @@
                                     <i class='bx bxs-star'></i>
                                     <i class='bx bxs-star'></i>
                                     <i class='bx bxs-star'></i>
-                                    <i class='bx bxs-star-half'></i>
+                                    <i class='bx bxs-star'></i>
+                                    {{-- <i class='bx bxs-star-half'></i> --}}
                                 </div>
                             </div>
                         </div>

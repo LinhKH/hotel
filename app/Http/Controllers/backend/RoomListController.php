@@ -32,12 +32,13 @@ class RoomListController extends Controller
             'bookings.check_out',
             'bookings.name as customer_name',
             'bookings.phone as customer_phone',
-            'bookings.status as booking_stauts',
+            'bookings.status as booking_status',
             'bookings.code as booking_no'
         )
             ->orderBy('room_types.id', 'asc')
             ->orderBy('bookings.id', 'desc')
             ->get();
+            // return $room_number_list;
 
         return view('backend.allroom.roomlist.view_roomlist', compact('room_number_list'));
     }

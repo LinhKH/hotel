@@ -92,21 +92,21 @@
                                                 <td>
                                                     <p> SubTotal</p>
                                                 </td>
-                                                <td style="text-align: right"><span class="t_subtotal">0</span> </td>
+                                                <td style="text-align: right">$<span class="t_subtotal">0</span> </td>
                                             </tr>
 
                                             <tr>
                                                 <td>
                                                     <p> Discount</p>
                                                 </td>
-                                                <td style="text-align: right"><span class="t_discount">0</span></td>
+                                                <td style="text-align: right">$<span class="t_discount">0</span></td>
                                             </tr>
 
                                             <tr>
                                                 <td>
                                                     <p> Total</p>
                                                 </td>
-                                                <td style="text-align: right"><span class="t_g_total">0</span></td>
+                                                <td style="text-align: right">$<span class="t_g_total">0</span></td>
                                             </tr>
 
                                         </tbody>
@@ -198,7 +198,7 @@
                     <div class="room-details-review">
                         <h2>Clients Review and Ratting's</h2>
                         <div class="review-ratting">
-                            <h3>Your retting: </h3>
+                            <h3>Your Raiting: </h3>
                             <i class='bx bx-star'></i>
                             <i class='bx bx-star'></i>
                             <i class='bx bx-star'></i>
@@ -252,7 +252,7 @@
                                 <h3>
                                     <a href="{{ url('details/room/' . $item->id) }}">{{ $item['type']['name'] }}</a>
                                 </h3>
-                                <span>{{ $item->price }} / Per Night </span>
+                                <span>${{ $item->price }} / Per Night </span>
                                 <div class="rating">
                                     <i class='bx bxs-star'></i>
                                     <i class='bx bxs-star'></i>
@@ -326,7 +326,7 @@
                     check_out: check_out
                 },
                 success: function(data) {
-                    $(".available_room").html('Availability : <span class="text-success">' + data[
+                    $(".available_room").html('Number of rooms Availability : <span class="text-success">' + data[
                         'available_room'] + ' Rooms</span>');
                     $("#available_room").val(data['available_room']);
                     price_calculate(data['total_nights']);
@@ -341,7 +341,7 @@
 
             var sub_total = room_price * total_nights * parseInt(select_room);
 
-            var discount_price = (parseInt(discount_p) / 100) * sub_total;
+            var discount_price = parseInt((discount_p) / 100 * sub_total);
 
             $(".t_subtotal").text(sub_total);
             $(".t_discount").text(discount_price);

@@ -9,7 +9,7 @@
                     <ol class="breadcrumb mb-0 p-0">
                         <li class="breadcrumb-item"><a href="javascript:;"><i class="bx bx-home-alt"></i></a>
                         </li>
-                        <li class="breadcrumb-item active" aria-current="page">All Room List </li>
+                        <li class="breadcrumb-item active" aria-current="page">All Room List In Last Booking</li>
                     </ol>
                 </nav>
             </div>
@@ -21,8 +21,6 @@
             </div>
         </div>
         <!--end breadcrumb-->
-
-
 
         <hr />
         <div class="card">
@@ -49,7 +47,7 @@
                                     <td>{{ $item->room_no }}</td>
                                     <td>
                                         @if ($item->booking_id != '')
-                                            @if ($item->booking_stauts == 1)
+                                            @if ($item->booking_status == 1)
                                                 <span class="badge bg-danger">Booked</span>
                                             @else
                                                 <span class="badge bg-warning">Pending</span>
@@ -73,7 +71,7 @@
 
                                     <td>
                                         @if ($item->booking_id != '')
-                                            <a href="{{ route('edit_booking',$item->id) }}"> {{ $item->booking_no }} </a>
+                                            <a href="{{ route('edit_booking',$item->booking_id) }}"> {{ $item->booking_no }} </a>
                                         @endif
                                     </td>
 

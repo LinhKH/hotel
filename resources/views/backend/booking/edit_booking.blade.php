@@ -282,7 +282,7 @@
                                 <input type="hidden" name="available_room" id="available_room" class="form-control">
 
                                 <div class="col-md-12 mb-2">
-                                    <label for="">Availability: <span class="text-success availability"></span>
+                                    <label for=""><strong>Number of rooms Availability: </strong><span class="text-success availability"></span>
                                     </label>
                                 </div>
 

@@ -59,7 +59,7 @@
                                         <input type="hidden" name="available_room" id="available_room"
                                             class="form-control">
                                         <div class="mt-2">
-                                            <label for="">Availability <span
+                                            <label for="">Number of rooms Availability <span
                                                     class="text-success availability"></span> </label>
                                         </div>
 
@@ -135,13 +135,13 @@
     <script>
         $(document).ready(function() {
             $("#room_id").on('change', function() {
-                $("#check_in").val('');
-                $("#check_out").val('');
+                // $("#check_in").val('');
+                // $("#check_out").val('');
                 $(".availability").text(0);
                 $("#available_room").val(0);
             });
 
-            $("#check_out").on('change', function() {
+            $("#check_in, #check_out, #room_id").on('change', function() {
                 getAvaility();
             });
 
@@ -176,7 +176,7 @@
                 });
 
             } else {
-                alert('Field must be not empty')
+                alert('RoomType, CheckIn, CheckOut must be not empty')
             }
 
         }

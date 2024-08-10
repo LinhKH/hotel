@@ -22,7 +22,7 @@
 <body>
     <!-- wrapper -->
     <div class="wrapper">
-        <nav class="navbar navbar-expand-lg navbar-light bg-white rounded fixed-top rounded-0 shadow-sm">
+        {{-- <nav class="navbar navbar-expand-lg navbar-light bg-white rounded fixed-top rounded-0 shadow-sm">
             <div class="container-fluid">
                 <a class="navbar-brand" href="#">
                     <img src="{{ asset('backend/assets/images/logo-img.png') }}" width="140" alt="" />
@@ -48,7 +48,7 @@
                     </ul>
                 </div>
             </div>
-        </nav>
+        </nav> --}}
         <div class="error-404 d-flex align-items-center justify-content-center">
             <div class="container">
                 <div class="card py-5">
@@ -62,10 +62,10 @@
                                     <br>The page you requested could not be found.
                                     <br>Dont'worry and return to the previous page.
                                 </p>
-                                <div class="mt-5"> <a href="javascript:;"
+                                <div class="mt-5"> <a href="{{ url('/') }}"
                                         class="btn btn-primary btn-lg px-md-5 radius-30">Go Home</a>
-                                    <a href="javascript:;"
-                                        class="btn btn-outline-dark btn-lg ms-3 px-md-5 radius-30">Back</a>
+                                    {{-- <a href="{{ url()->previous() }}"
+                                        class="btn btn-outline-dark btn-lg ms-3 px-md-5 radius-30">Back</a> --}}
                                 </div>
                             </div>
                         </div>
@@ -78,7 +78,7 @@
                 </div>
             </div>
         </div>
-        <div class="bg-white p-3 fixed-bottom border-top shadow">
+        {{-- <div class="bg-white p-3 fixed-bottom border-top shadow">
             <div class="d-flex align-items-center justify-content-between flex-wrap">
                 <ul class="list-inline mb-0">
                     <li class="list-inline-item">Follow Us :</li>
@@ -91,7 +91,7 @@
                 </ul>
                 <p class="mb-0">Copyright © 2021. All right reserved.</p>
             </div>
-        </div>
+        </div> --}}
     </div>
     <!-- end wrapper -->
     <!-- Bootstrap JS -->
