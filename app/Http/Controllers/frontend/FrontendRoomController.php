@@ -11,6 +11,9 @@ use App\Models\RoomBookedDate;
 use Carbon\Carbon;
 use Carbon\CarbonPeriod;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
+use Maatwebsite\Excel\Concerns\ToArray;
 
 class FrontendRoomController extends Controller
 {
@@ -25,13 +28,14 @@ class FrontendRoomController extends Controller
         $roomdetails = Room::find($id);
         $multiImage = MultiImage::where('rooms_id', $id)->get();
         $facility = Facility::where('rooms_id', $id)->get();
-        $otherRooms = Room::where('id', '!=', $id)->orderBy('id', 'DESC')->limit(2)->get();
+        $otherRooms = Room::where('id', '!=', $id)->orderBy('id', 'DESC')->limit(4)->get();
         $room_id = $id;
         return view('frontend.room.room_details', compact('roomdetails', 'multiImage', 'facility', 'otherRooms', 'room_id'));
     }
 
     public function BookingSeach(Request $request)
     {
+        // DB::enableQueryLog();
         $request->flash();
 
         if ($request->check_in == $request->check_out) {
@@ -57,8 +61,8 @@ class FrontendRoomController extends Controller
         }
 
         // Cach 1: Not Use the tabel room_booked_dates => Đỡ tốn tài nguyên cho 1 table
-        $bookings = Booking::withCount('assign_rooms')->get();
         /**
+        $bookings = Booking::withCount('assign_rooms')->get();
         if (!empty($bookings)) {
             foreach ($bookings as $key => $value) {
                 $sdate = date('Y-m-d', strtotime($value->check_in));
@@ -91,7 +95,6 @@ class FrontendRoomController extends Controller
         // Cach 2: Use the tabel room_booked_dates
         $check_date_booking_ids = RoomBookedDate::whereIn('book_date', $datetime_array)->distinct()->pluck('booking_id')->toArray();
         
-
         $sqlQuery = "SELECT t1.*, COUNT(t2.rooms_id) as room_numbers_count FROM rooms t1
                     LEFT JOIN room_numbers t2 ON t1.id = t2.rooms_id AND t2.`status` = 'Active'
                     WHERE t1.status = 1
@@ -101,9 +104,14 @@ class FrontendRoomController extends Controller
 
         $bookings = Booking::withCount('assign_rooms')
                             ->whereIn('id', $check_date_booking_ids)
+                            ->where('rooms_id', 5)
                             ->get()
-                            ->toArray();
-
+                            ->sum('assign_rooms_count');
+                            // ->toArray();
+                            // return $bookings;
+                            
+        // Log::info('Query: {id}', ['id' => DB::getQueryLog()]);
+        // dd(DB::getQueryLog());
         return view('frontend.room.search_room', compact('rooms', 'check_date_booking_ids'));
     }
 
@@ -114,7 +122,7 @@ class FrontendRoomController extends Controller
         $multiImage = MultiImage::where('rooms_id', $id)->get();
         $facility = Facility::where('rooms_id', $id)->get();
 
-        $otherRooms = Room::where('id', '!=', $id)->orderBy('id', 'DESC')->limit(2)->get();
+        $otherRooms = Room::where('id', '!=', $id)->orderBy('id', 'DESC')->limit(4)->get();
         $room_id = $id;
         return view('frontend.room.search_room_details', compact('roomdetails', 'multiImage', 'facility', 'otherRooms', 'room_id'));
     }
@@ -136,10 +144,11 @@ class FrontendRoomController extends Controller
 
         $room = Room::withCount('room_numbers')->find($request->room_id);
 
-        $bookings = Booking::withCount('assign_rooms')->whereIn('id', $check_date_booking_ids)->where('rooms_id', $room->id)->get()->toArray();
+        // $bookings = Booking::withCount('assign_rooms')->whereIn('id', $check_date_booking_ids)->where('rooms_id', $room->id)->get();
+        // $total_room_booked = array_sum(array_column($bookings, 'assign_rooms_count'));
 
-        $total_room_booked = array_sum(array_column($bookings, 'assign_rooms_count'));
-
+        $total_room_booked = Booking::withCount('assign_rooms')->whereIn('id', $check_date_booking_ids)->where('rooms_id', $room->id)->get()->sum('assign_rooms_count');
+        
         $av_room = @$room->room_numbers_count - $total_room_booked;
 
         $toDate = Carbon::parse($request->check_in);

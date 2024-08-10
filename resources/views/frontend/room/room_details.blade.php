@@ -152,7 +152,7 @@
                             <h3>Basic Plan Facilities</h3>
                             <ul>
                                 @foreach ($facility as $fac)
-                                <li><a href="#">{{ $fac->facility_name }}</a></li>
+                                <li><a href="javascript:;">{{ $fac->facility_name }}</a></li>
                                 @endforeach
                             </ul>
                         </div>
@@ -163,11 +163,11 @@
                                     <div class="side-bar-list">
                                         <ul>
                                             <li>
-                                                <a href="#"> <b>Capacity : </b> {{ $roomdetails->room_capacity }}
+                                                <a href="javascript:;"> <b>Capacity : </b> {{ $roomdetails->room_capacity }}
                                                     Person <i class='bx bxs-cloud-download'></i></a>
                                             </li>
                                             <li>
-                                                <a href="#"> <b>Size : </b> {{ $roomdetails->size }}ft2 <i
+                                                <a href="javascript:;"> <b>Size : </b> {{ $roomdetails->size }}ft2 <i
                                                         class='bx bxs-cloud-download'></i></a>
                                             </li>
                                         </ul>
@@ -180,11 +180,11 @@
                                     <div class="side-bar-list">
                                         <ul>
                                             <li>
-                                                <a href="#"> <b>View : </b> {{ $roomdetails->view }} <i
+                                                <a href="javascript:;"> <b>View : </b> {{ $roomdetails->view }} <i
                                                         class='bx bxs-cloud-download'></i></a>
                                             </li>
                                             <li>
-                                                <a href="#"> <b>Bad Style : </b> {{ $roomdetails->bed_style }}
+                                                <a href="javascript:;"> <b>Bad Style : </b> {{ $roomdetails->bed_style }}
                                                     <i class='bx bxs-cloud-download'></i></a>
                                             </li>
                                         </ul>

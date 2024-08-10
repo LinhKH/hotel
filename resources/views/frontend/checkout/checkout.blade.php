@@ -34,7 +34,7 @@
                                         <label>Country <span class="required">*</span></label>
                                         <div class="select-box">
                                             <select name="country" class="form-control">
-                                                <option value="Bangladesh">Bangladesh</option>
+                                                <option value="VietNam">Viet Nam</option>
                                                 <option value="India">India</option>
                                                 <option value="United Arab">United Arab Emirates</option>
                                                 <option value="China">China</option>
@@ -75,14 +75,14 @@
                                     <div class="form-group">
                                         <label>Address <span class="required">*</span></label>
                                         <input type="text" name="address" class="form-control"
-                                            value="{{ \Auth::user()->address }}">
+                                            value="{{ \Auth::user()->address ?? 'Ho Chi Minh' }}">
                                     </div>
                                 </div>
 
                                 <div class="col-lg-6 col-md-6">
                                     <div class="form-group">
                                         <label>State <span class="required">*</span></label>
-                                        <input type="text" name="state" class="form-control">
+                                        <input type="text" name="state" value="Tan Binh" class="form-control">
                                         @if ($errors->has('state'))
                                             <div class="text-danger">{{ $errors->first('state') }}</div>
                                         @endif
@@ -92,7 +92,7 @@
                                 <div class="col-lg-6 col-md-6">
                                     <div class="form-group">
                                         <label>ZipCode <span class="required">*</span></label>
-                                        <input type="text" name="zip_code" class="form-control">
+                                        <input type="text" name="zip_code" value="700000" class="form-control">
                                         @if ($errors->has('zip_code'))
                                             <div class="text-danger">{{ $errors->first('zip_code') }}</div>
                                         @endif
@@ -117,9 +117,9 @@
                                             src="{{ !empty($room->image) ? url('upload/roomimg/' . $room->image) : url('upload/no_image.jpg') }}"
                                             alt="Images" alt="Images">
                                         <div style="padding-left: 10px;">
-                                            <a href=" "
+                                            <a href="javascript:;"
                                                 style="font-size: 20px; color: #595959;font-weight: bold">{{ @$room->type->name }}</a>
-                                            <p><b>{{ $room->price }} / Night</b></p>
+                                            <p><b>${{ $room->price }} / Night</b></p>
                                         </div>
                                     </div>
                                     <br>

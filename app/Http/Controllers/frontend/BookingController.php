@@ -36,7 +36,7 @@ class BookingController extends Controller
 
         if ($request->available_room < $request->number_of_rooms) {
             $notification = array(
-                'message' => 'Something want to wrong!',
+                'message' => 'Sorry, you are selected maximum number of room!',
                 'alert-type' => 'error'
             );
             return redirect()->back()->with($notification);
