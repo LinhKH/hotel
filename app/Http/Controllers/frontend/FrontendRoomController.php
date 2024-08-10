@@ -23,8 +23,9 @@ class FrontendRoomController extends Controller
         return view('frontend.room.all_rooms', compact('rooms'));
     }
 
-    public function RoomDetailsPage($id)
+    public function RoomDetailsPage(Request $request, $id)
     {
+        $request->flash();
         $roomdetails = Room::find($id);
         $multiImage = MultiImage::where('rooms_id', $id)->get();
         $facility = Facility::where('rooms_id', $id)->get();
