@@ -25,7 +25,6 @@ class RoomController extends Controller
 
     public function UpdateRoom(Request $request, $id)
     {
-
         $room  = Room::find($id);
         $room->roomtype_id = $room->roomtype_id;
         $room->total_adult = $request->total_adult;
@@ -34,8 +33,8 @@ class RoomController extends Controller
         $room->price = $request->price;
 
         $room->size = $request->size;
-        $room->view = $request->view;
-        $room->bed_style = $request->bed_style;
+        $room->view = $request->view ?? null;
+        $room->bed_style = $request->bed_style ?? null;
         $room->discount = $request->discount;
         $room->short_desc = $request->short_desc;
         $room->description = $request->description;
@@ -134,17 +133,27 @@ class RoomController extends Controller
 
     public function StoreRoomNumber(Request $request, $id)
     {
-        $data = new RoomNumber();
-        $data->rooms_id = $id;
-        $data->room_type_id = $request->room_type_id;
-        $data->room_no = $request->room_no;
-        $data->status = $request->status;
-        $data->save();
+        $room = Room::findOrFail($id);
+        $roomNumber = RoomNumber::where('rooms_id', $id)->count();
+        if ($room->room_capacity > $roomNumber) {
+            $data = new RoomNumber();
+            $data->rooms_id = $id;
+            $data->room_type_id = $request->room_type_id;
+            $data->room_no = $request->room_no;
+            $data->status = $request->status ?? null;
+            $data->save();
+    
+            $notification = array(
+                'message' => 'Room Number Added Successfully',
+                'alert-type' => 'success'
+            );
+        } else {
+            $notification = array(
+                'message' => 'You are selected maximum number of room',
+                'alert-type' => 'error'
+            );
+        }
 
-        $notification = array(
-            'message' => 'Room Number Added Successfully',
-            'alert-type' => 'success'
-        );
 
         return redirect()->back()->with($notification);
     }

@@ -23,6 +23,9 @@ class RoomTypeController extends Controller
 
     public function RoomTypeStore(Request $request)
     {
+        $this->validate($request, [
+            'name' => 'required',
+        ]);
         $roomtype_id = RoomType::insertGetId([
             'name' => $request->name,
             'created_at' => Carbon::now(),

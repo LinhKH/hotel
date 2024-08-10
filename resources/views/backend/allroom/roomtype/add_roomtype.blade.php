@@ -66,16 +66,11 @@
                     name: {
                         required: true,
                     },
-
-
                 },
                 messages: {
                     name: {
                         required: 'Please Enter Team Name',
                     },
-
-
-
                 },
                 errorElement: 'span',
                 errorPlacement: function(error, element) {
